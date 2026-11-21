@@ -1,0 +1,353 @@
+{
+  "prompt": {
+    "runs": [
+      {
+        "file": "prompt_run1.jsonl",
+        "calls": 50,
+        "invalid_rate": 0.45999999999999996,
+        "field_accuracy": 0.44,
+        "accuracy_on_valid": 0.8148148148148148,
+        "per_field": {
+          "domain": 0.5,
+          "notice_type": 0.4,
+          "expires_on": 0.46,
+          "registrar": 0.34,
+          "amount_due": 0.46,
+          "currency": 0.48,
+          "action_required": 0.44
+        },
+        "refusals": 0,
+        "truncated": 0,
+        "unparseable": 0,
+        "fenced": 0,
+        "cost_usd": 0.08025,
+        "prompt_tokens": 25141,
+        "completion_tokens": 3746,
+        "seconds": 471.937,
+        "invalid_ids": [
+          "n01",
+          "n02",
+          "n03",
+          "n04",
+          "n06",
+          "n07",
+          "n08",
+          "n09",
+          "n10",
+          "n14",
+          "n15",
+          "n16",
+          "n20",
+          "n21",
+          "n22",
+          "n26",
+          "n33",
+          "n36",
+          "n37",
+          "n40",
+          "n41",
+          "n42",
+          "n49"
+        ]
+      },
+      {
+        "file": "prompt_run2.jsonl",
+        "calls": 50,
+        "invalid_rate": 0.48,
+        "field_accuracy": 0.4342857142857143,
+        "accuracy_on_valid": 0.8351648351648352,
+        "per_field": {
+          "domain": 0.48,
+          "notice_type": 0.42,
+          "expires_on": 0.44,
+          "registrar": 0.32,
+          "amount_due": 0.46,
+          "currency": 0.48,
+          "action_required": 0.44
+        },
+        "refusals": 0,
+        "truncated": 0,
+        "unparseable": 0,
+        "fenced": 0,
+        "cost_usd": 0.080434,
+        "prompt_tokens": 25141,
+        "completion_tokens": 3769,
+        "seconds": 512.3870000000001,
+        "invalid_ids": [
+          "n01",
+          "n02",
+          "n03",
+          "n04",
+          "n06",
+          "n07",
+          "n08",
+          "n09",
+          "n10",
+          "n14",
+          "n15",
+          "n16",
+          "n20",
+          "n21",
+          "n22",
+          "n26",
+          "n33",
+          "n36",
+          "n37",
+          "n40",
+          "n41",
+          "n42",
+          "n49",
+          "n50"
+        ]
+      },
+      {
+        "file": "prompt_run3.jsonl",
+        "calls": 50,
+        "invalid_rate": 0.45999999999999996,
+        "field_accuracy": 0.44285714285714284,
+        "accuracy_on_valid": 0.8201058201058201,
+        "per_field": {
+          "domain": 0.5,
+          "notice_type": 0.42,
+          "expires_on": 0.46,
+          "registrar": 0.34,
+          "amount_due": 0.46,
+          "currency": 0.48,
+          "action_required": 0.44
+        },
+        "refusals": 0,
+        "truncated": 0,
+        "unparseable": 0,
+        "fenced": 0,
+        "cost_usd": 0.080458,
+        "prompt_tokens": 25141,
+        "completion_tokens": 3772,
+        "seconds": 468.426,
+        "invalid_ids": [
+          "n01",
+          "n02",
+          "n03",
+          "n04",
+          "n06",
+          "n07",
+          "n08",
+          "n09",
+          "n10",
+          "n14",
+          "n15",
+          "n16",
+          "n20",
+          "n21",
+          "n22",
+          "n26",
+          "n33",
+          "n36",
+          "n37",
+          "n40",
+          "n41",
+          "n42",
+          "n49"
+        ]
+      }
+    ],
+    "invalid_rate": {
+      "mean": 0.4666666666666666,
+      "min": 0.45999999999999996,
+      "max": 0.48,
+      "runs": [
+        0.45999999999999996,
+        0.48,
+        0.45999999999999996
+      ]
+    },
+    "field_accuracy": {
+      "mean": 0.439047619047619,
+      "min": 0.4342857142857143,
+      "max": 0.44285714285714284,
+      "runs": [
+        0.44,
+        0.4342857142857143,
+        0.44285714285714284
+      ]
+    },
+    "accuracy_on_valid": {
+      "mean": 0.8233618233618234,
+      "min": 0.8148148148148148,
+      "max": 0.8351648351648352,
+      "runs": [
+        0.8148148148148148,
+        0.8351648351648352,
+        0.8201058201058201
+      ]
+    },
+    "cost_usd": {
+      "mean": 0.08038066666666667,
+      "min": 0.08025,
+      "max": 0.080458,
+      "runs": [
+        0.08025,
+        0.080434,
+        0.080458
+      ]
+    },
+    "seconds": {
+      "mean": 484.25,
+      "min": 468.426,
+      "max": 512.3870000000001,
+      "runs": [
+        471.937,
+        512.3870000000001,
+        468.426
+      ]
+    },
+    "total_cost_usd": 0.24114200000000002,
+    "per_field_mean": {
+      "domain": 0.49333333333333335,
+      "notice_type": 0.41333333333333333,
+      "expires_on": 0.45333333333333337,
+      "registrar": 0.33333333333333337,
+      "amount_due": 0.46,
+      "currency": 0.48,
+      "action_required": 0.44
+    }
+  },
+  "grammar": {
+    "runs": [
+      {
+        "file": "grammar_run1.jsonl",
+        "calls": 50,
+        "invalid_rate": 0.0,
+        "field_accuracy": 0.74,
+        "accuracy_on_valid": 0.74,
+        "per_field": {
+          "domain": 0.88,
+          "notice_type": 0.62,
+          "expires_on": 0.68,
+          "registrar": 0.52,
+          "amount_due": 0.82,
+          "currency": 0.78,
+          "action_required": 0.88
+        },
+        "refusals": 0,
+        "truncated": 0,
+        "unparseable": 0,
+        "fenced": 0,
+        "cost_usd": 0.080474,
+        "prompt_tokens": 25141,
+        "completion_tokens": 3774,
+        "seconds": 462.928,
+        "invalid_ids": []
+      },
+      {
+        "file": "grammar_run2.jsonl",
+        "calls": 50,
+        "invalid_rate": 0.0,
+        "field_accuracy": 0.7514285714285714,
+        "accuracy_on_valid": 0.7514285714285714,
+        "per_field": {
+          "domain": 0.88,
+          "notice_type": 0.68,
+          "expires_on": 0.74,
+          "registrar": 0.5,
+          "amount_due": 0.82,
+          "currency": 0.76,
+          "action_required": 0.88
+        },
+        "refusals": 0,
+        "truncated": 0,
+        "unparseable": 0,
+        "fenced": 0,
+        "cost_usd": 0.080618,
+        "prompt_tokens": 25141,
+        "completion_tokens": 3792,
+        "seconds": 477.937,
+        "invalid_ids": []
+      },
+      {
+        "file": "grammar_run3.jsonl",
+        "calls": 50,
+        "invalid_rate": 0.0,
+        "field_accuracy": 0.7571428571428571,
+        "accuracy_on_valid": 0.7571428571428571,
+        "per_field": {
+          "domain": 0.88,
+          "notice_type": 0.68,
+          "expires_on": 0.72,
+          "registrar": 0.54,
+          "amount_due": 0.82,
+          "currency": 0.78,
+          "action_required": 0.88
+        },
+        "refusals": 0,
+        "truncated": 0,
+        "unparseable": 0,
+        "fenced": 0,
+        "cost_usd": 0.080682,
+        "prompt_tokens": 25141,
+        "completion_tokens": 3800,
+        "seconds": 472.209,
+        "invalid_ids": []
+      }
+    ],
+    "invalid_rate": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "runs": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "field_accuracy": {
+      "mean": 0.7495238095238095,
+      "min": 0.74,
+      "max": 0.7571428571428571,
+      "runs": [
+        0.74,
+        0.7514285714285714,
+        0.7571428571428571
+      ]
+    },
+    "accuracy_on_valid": {
+      "mean": 0.7495238095238095,
+      "min": 0.74,
+      "max": 0.7571428571428571,
+      "runs": [
+        0.74,
+        0.7514285714285714,
+        0.7571428571428571
+      ]
+    },
+    "cost_usd": {
+      "mean": 0.08059133333333333,
+      "min": 0.080474,
+      "max": 0.080682,
+      "runs": [
+        0.080474,
+        0.080618,
+        0.080682
+      ]
+    },
+    "seconds": {
+      "mean": 471.0246666666667,
+      "min": 462.928,
+      "max": 477.937,
+      "runs": [
+        462.928,
+        477.937,
+        472.209
+      ]
+    },
+    "total_cost_usd": 0.241774,
+    "per_field_mean": {
+      "domain": 0.88,
+      "notice_type": 0.66,
+      "expires_on": 0.7133333333333334,
+      "registrar": 0.52,
+      "amount_due": 0.82,
+      "currency": 0.7733333333333333,
+      "action_required": 0.88
+    }
+  }
+}
