@@ -5,6 +5,8 @@
 | Field accuracy on valid outputs | 82.3% (81.5%–83.5%) | 75.0% (74.0%–75.7%) |
 | Cost per run (USD, notional) | 0.0804 (0.0803–0.0805) | 0.0806 (0.0805–0.0807) |
 | Total cost, all runs (USD) | 0.2411 | 0.2418 |
+| Cost per run with prefix cache (USD) | 0.0469 (0.0467–0.0469) | 0.0471 (0.0469–0.0472) |
+| Total cost with prefix cache (USD) | 0.1406 | 0.1412 |
 | Seconds per run | 484 (468–512) | 471 (463–478) |
 | Refusals / truncated / fenced (all runs) | 0 / 0 / 0 | 0 / 0 / 0 |
 |   accuracy: domain | 49.3% | 88.0% |

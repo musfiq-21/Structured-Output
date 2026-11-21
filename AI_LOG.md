@@ -14,4 +14,5 @@ Assistant: Claude Code (Claude Opus 5.5).
 | 5 | `extract.py`: both methods, same prompt and settings, seed = run number, resumable | 300 records in `runs/`; Ollama accepted the full schema in a probe call | |
 | 6 | `score.py`: parsing (fence only forgiven), schema validation, truncation, field rules, spread | `tests/test_score.py` (7 tests); the 23 invalid prompt outputs were checked by hand to be real schema errors, not scorer bugs | |
 | 7 | `tests/test_contract.py`: compatibility rules and the additive / breaking test | The test itself: additive `registrar_url` accepted; rename, retype and new enum value rejected | |
-| 8 | `REPORT.md`, written from `results/summary.json` and `runs/*.jsonl` | No unit test: every number came from `score.py` or a script over the run files | |
+| 8 | `cache_from_logs.py` and cached-input pricing (`notional_cost(..., cached_tokens)` in the wrapper, extra cost rows in `score.py`) | Script refuses to write unless all 300 logged prompt sizes equal the run records; `test_slide_cost_example` checks slide 20's prefix-hit row ($0.0102) | |
+| 9 | `REPORT.md`, written from `results/summary.json` and `runs/*.jsonl` | No unit test: every number came from `score.py` or a script over the run files | |

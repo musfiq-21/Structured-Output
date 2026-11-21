@@ -10,9 +10,13 @@ Refusals (no JSON object at all) are counted separately. There are no retries.
 import json
 import re
 import statistics
+import sys
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "SQL-Calculation-Agent"))
+from sqlagent.llm import notional_cost  # noqa: E402  (class 1 pricing)
 
 HERE = Path(__file__).resolve().parent
 SCHEMA = json.loads((HERE / "schema" / "notice_v1.schema.json").read_text())
@@ -20,6 +24,10 @@ KEY = json.loads((HERE / "data" / "answer_key.json").read_text())
 FIELDS = ["domain", "notice_type", "expires_on", "registrar", "amount_due", "currency",
           "action_required"]
 VALIDATOR = Draft202012Validator(SCHEMA)
+CACHE_FILE = HERE / "runs" / "prompt_cache.jsonl"  # written by cache_from_logs.py
+CACHED = ({(c["method"], c["run"], c["id"]): c["cached_tokens"]
+           for c in map(json.loads, CACHE_FILE.read_text().splitlines())}
+          if CACHE_FILE.exists() else {})
 FENCE = re.compile(r"^```(?:json)?\s*(.*?)\s*```$", re.DOTALL)
 
 
@@ -82,6 +90,10 @@ def score_run(path):
         "unparseable": sum(not s["parsed"] for s in scored),
         "fenced": sum(s["fenced"] for s in scored),
         "cost_usd": sum(r["cost_usd"] for r in recs),
+        "cost_cached_usd": sum(notional_cost(r["prompt_tokens"], r["completion_tokens"],
+                                             CACHED.get((r["method"], r["run"], r["id"]), 0))
+                               for r in recs),
+        "cached_tokens": sum(CACHED.get((r["method"], r["run"], r["id"]), 0) for r in recs),
         "prompt_tokens": sum(r["prompt_tokens"] for r in recs),
         "completion_tokens": sum(r["completion_tokens"] for r in recs),
         "seconds": sum(r["seconds"] for r in recs),
@@ -103,8 +115,10 @@ def main():
         out[method] = {
             "runs": runs,
             **{m: spread([r[m] for r in runs]) for m in
-               ("invalid_rate", "field_accuracy", "accuracy_on_valid", "cost_usd", "seconds")},
+               ("invalid_rate", "field_accuracy", "accuracy_on_valid", "cost_usd",
+                "cost_cached_usd", "seconds")},
             "total_cost_usd": sum(r["cost_usd"] for r in runs),
+            "total_cost_cached_usd": sum(r["cost_cached_usd"] for r in runs),
             "per_field_mean": {f: statistics.mean(r["per_field"][f] for r in runs)
                                for f in FIELDS},
         }
@@ -120,6 +134,10 @@ def main():
             ("Cost per run (USD, notional)", lambda m: "{mean:.4f} ({min:.4f}–{max:.4f})"
              .format(**m["cost_usd"])),
             ("Total cost, all runs (USD)", lambda m: f"{m['total_cost_usd']:.4f}"),
+            ("Cost per run with prefix cache (USD)", lambda m: "{mean:.4f} ({min:.4f}–{max:.4f})"
+             .format(**m["cost_cached_usd"])),
+            ("Total cost with prefix cache (USD)",
+             lambda m: f"{m['total_cost_cached_usd']:.4f}"),
             ("Seconds per run", lambda m: "{mean:.0f} ({min:.0f}–{max:.0f})"
              .format(**m["seconds"])),
             ("Refusals / truncated / fenced (all runs)", lambda m: "{} / {} / {}".format(

@@ -21,6 +21,8 @@
         "unparseable": 0,
         "fenced": 0,
         "cost_usd": 0.08025,
+        "cost_cached_usd": 0.046725,
+        "cached_tokens": 22350,
         "prompt_tokens": 25141,
         "completion_tokens": 3746,
         "seconds": 471.937,
@@ -70,6 +72,8 @@
         "unparseable": 0,
         "fenced": 0,
         "cost_usd": 0.080434,
+        "cost_cached_usd": 0.046909,
+        "cached_tokens": 22350,
         "prompt_tokens": 25141,
         "completion_tokens": 3769,
         "seconds": 512.3870000000001,
@@ -120,6 +124,8 @@
         "unparseable": 0,
         "fenced": 0,
         "cost_usd": 0.080458,
+        "cost_cached_usd": 0.046933,
+        "cached_tokens": 22350,
         "prompt_tokens": 25141,
         "completion_tokens": 3772,
         "seconds": 468.426,
@@ -190,6 +196,16 @@
         0.080458
       ]
     },
+    "cost_cached_usd": {
+      "mean": 0.04685566666666667,
+      "min": 0.046725,
+      "max": 0.046933,
+      "runs": [
+        0.046725,
+        0.046909,
+        0.046933
+      ]
+    },
     "seconds": {
       "mean": 484.25,
       "min": 468.426,
@@ -201,6 +217,7 @@
       ]
     },
     "total_cost_usd": 0.24114200000000002,
+    "total_cost_cached_usd": 0.140567,
     "per_field_mean": {
       "domain": 0.49333333333333335,
       "notice_type": 0.41333333333333333,
@@ -233,6 +250,8 @@
         "unparseable": 0,
         "fenced": 0,
         "cost_usd": 0.080474,
+        "cost_cached_usd": 0.046949,
+        "cached_tokens": 22350,
         "prompt_tokens": 25141,
         "completion_tokens": 3774,
         "seconds": 462.928,
@@ -258,6 +277,8 @@
         "unparseable": 0,
         "fenced": 0,
         "cost_usd": 0.080618,
+        "cost_cached_usd": 0.047093,
+        "cached_tokens": 22350,
         "prompt_tokens": 25141,
         "completion_tokens": 3792,
         "seconds": 477.937,
@@ -283,6 +304,8 @@
         "unparseable": 0,
         "fenced": 0,
         "cost_usd": 0.080682,
+        "cost_cached_usd": 0.047157,
+        "cached_tokens": 22350,
         "prompt_tokens": 25141,
         "completion_tokens": 3800,
         "seconds": 472.209,
@@ -329,6 +352,16 @@
         0.080682
       ]
     },
+    "cost_cached_usd": {
+      "mean": 0.047066333333333335,
+      "min": 0.046949,
+      "max": 0.047157,
+      "runs": [
+        0.046949,
+        0.047093,
+        0.047157
+      ]
+    },
     "seconds": {
       "mean": 471.0246666666667,
       "min": 462.928,
@@ -340,6 +373,7 @@
       ]
     },
     "total_cost_usd": 0.241774,
+    "total_cost_cached_usd": 0.141199,
     "per_field_mean": {
       "domain": 0.88,
       "notice_type": 0.66,

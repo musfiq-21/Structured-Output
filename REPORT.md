@@ -22,6 +22,8 @@ Needs Python 3.10+, `jsonschema` (`pip install jsonschema`) and Ollama with `qwe
 python3 kv_cache.py                            # Task 1 working
 python3 kv_cache.py --key <8k size>,<32k size> # compare with the answer key (10% rule)
 python3 extract.py                             # Task 2: 300 calls, ~48 min on CPU, resumable
+journalctl -u ollama --since today -o short-iso > /tmp/ollama.log
+python3 cache_from_logs.py /tmp/ollama.log     # prompt-cache hits -> runs/prompt_cache.jsonl
 python3 score.py                               # writes results/summary.{json,md}
 python3 -m unittest                            # contract test + scorer tests
 ```
@@ -63,7 +65,8 @@ the 32k cache would be 12.25 GiB, 7x more.
 - **Scoring (slide 33):** invalid = not JSON, fails schema v1, or cut off (`done_reason` =
   `length`). Field accuracy = correct fields / (calls x 7); invalid outputs score 0 on every
   field. No retries.
-- **Cost:** teaching rates from slide 20, $2 per million input and $8 per million output tokens.
+- **Cost:** teaching rates from slide 20, $2 per million input, $0.50 per million cached input
+  and $8 per million output tokens.
 
 ### Results (3 runs x 50 notices per method)
 
@@ -72,8 +75,9 @@ the 32k cache would be 12.25 GiB, 7x more.
 | **Invalid rate** | **46.7%** (46.0%–48.0%) | **0.0%** (0.0%–0.0%) |
 | **Field accuracy** | **43.9%** (43.4%–44.3%) | **75.0%** (74.0%–75.7%) |
 | Field accuracy, scoring fields even in invalid outputs | 70.5% (69.4%–71.1%) | 75.0% (74.0%–75.7%) |
-| **Cost per run** (USD, notional) | **0.0804** (0.0803–0.0805) | **0.0806** (0.0805–0.0807) |
-| Total cost, 3 runs (USD) | 0.2411 | 0.2418 |
+| Cost per run, ledger (all input uncached, USD) | 0.0804 (0.0803–0.0805) | 0.0806 (0.0805–0.0807) |
+| **Cost per run, with prefix cache** (USD) | **0.0469** (0.0467–0.0469) | **0.0471** (0.0469–0.0472) |
+| Total cost, 3 runs: ledger / with prefix cache (USD) | 0.2411 / 0.1406 | 0.2418 / 0.1412 |
 | Seconds per run (50 calls) | 484 (468–512) | 471 (463–478) |
 | Refusals / truncated / fenced | 0 / 0 / 0 | 0 / 0 / 0 |
 
@@ -108,7 +112,15 @@ Per-field accuracy (mean of 3 runs, invalid outputs count as wrong):
    These need a better prompt, few-shot examples or a larger model, not a grammar.
 5. **Cost and time are the same.** Grammar costs 0.3% more (a few more output tokens) and runs
    at the same speed. On this setup constrained decoding is effectively free.
-6. **Spread is small** (about 2 points) because temperature is 0.3 and only the seed changes.
+6. **The prefix cache cuts cost by 42%, equally for both methods.** Every call starts with the
+   same 447-token system prompt, and Ollama reused it from its prefix cache on all 300 calls
+   (slides 17–19); only the ~30–60 notice tokens were new. Ollama's API still reports the full
+   `prompt_eval_count`, so the class 1 ledger prices every input token at $2/M. The server log
+   shows the hits: `cache_from_logs.py` matched all 300 logged calls to the run records (every
+   prompt size agreed) and saved them to `runs/prompt_cache.jsonl`. Priced at the slide 20
+   cached rate ($0.50/M), a run costs $0.047 instead of $0.080. Both figures are in the table;
+   the comparison between methods does not change.
+7. **Spread is small** (about 2 points) because temperature is 0.3 and only the seed changes.
 
 **Conclusion:** for a 3B model, grammar-constrained decoding removes the invalid outputs
 entirely (47% to 0%) at no extra cost, raising field accuracy from 44% to 75%. It does not make
@@ -129,8 +141,9 @@ stays required, new fields are optional and the major version stays 1.
 - The notices and the answer key were written together for this assignment, not taken from a
   real inbox or the course starter repo (none was provided).
 - `qwen2.5:3b` instead of 7B: the machine has about 2 GB of free RAM and no GPU.
-- Costs are notional teaching rates; local inference has no bill. Ollama reported full prompt
-  token counts (no prefix-cache discount), so there is no cached-input line.
+- Costs are notional teaching rates; local inference has no bill. Ollama's API does not report
+  cached prompt tokens, so the cached-input cost comes from the server log, not the ledger.
+  Logs rotate; `runs/prompt_cache.jsonl` keeps the matched evidence.
 - Prompt-only parsing is strict except for a surrounding code fence; a more forgiving parser
   (for example, mapping `$` to `USD`) would lower its invalid rate, but would be the application
   repairing the model's output.
